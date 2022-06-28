@@ -26,7 +26,10 @@ const TableCentral = () => {
   const [loja, setLoja] = useState();
   const cep = dadosCep.cep.replace("-", "");
   const [loading, setLoading] = useState(true);
-
+  const listaDeTabLists = [];
+  for (let i = 0; i < 31; i++) {
+    listaDeTabLists.push(<WrapperTab>Loja {i + 1}</WrapperTab>);
+  }
   useEffect(() => {
     if (!loja) {
       buscaLojas(cep);
@@ -66,17 +69,16 @@ const TableCentral = () => {
           </>
         ) : (
           <>
-            {" "}
-            {loja.map((item, index) => (
+            <WrapperTabs
+              selectedTabClassName="is-selected"
+              selectedTabPanelClassName="is-selected"
+            >
               <>
-                <WrapperTabs
-                  selectedTabClassName="is-selected"
-                  selectedTabPanelClassName="is-selected"
-                >
-                  <WrapperTabList>
-                    <WrapperTab>Loja {index + 1}</WrapperTab>
-                  </WrapperTabList>
-                  <WrapperTabPanel>
+                <WrapperTabList>
+                  {listaDeTabLists.map((item, index) => item)}
+                </WrapperTabList>
+                {loja.map((item, index) => (
+                  <WrapperTabPanel key={index}>
                     {index == 0 ? (
                       <BarraDeTexto>
                         O Carrefour mais perto de você é a loja{" "}
@@ -101,9 +103,9 @@ const TableCentral = () => {
                       ))}
                     </Cards>
                   </WrapperTabPanel>
-                </WrapperTabs>
+                ))}
               </>
-            ))}
+            </WrapperTabs>
           </>
         )}
       </LoadingWrapper>

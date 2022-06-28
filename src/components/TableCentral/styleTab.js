@@ -11,6 +11,8 @@ export const WrapperTabList = styled(TabList)`
   padding: 4px;
   display: flex;
   margin: 0;
+  overflow-x: scroll;
+  white-space: nowrap;
 `;
 WrapperTabList.tabsRole = "TabList";
 export const WrapperTab = styled(Tab)`
